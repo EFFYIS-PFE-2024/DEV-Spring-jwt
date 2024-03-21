@@ -23,4 +23,5 @@ COPY /src/main/java/com/jihad/springjwt/ /app/com/jihad/springjwt/
 
 WORKDIR /app
 
-ENTRYPOINT ["java", "-cp", ".:/app/lib/*", "com.jihad.springjwt.SpringBootSecurityJwtApplication"]
+ENV START_COMMAND="java -jar your_application.jar"
+CMD ["/bin/sh", "-c", "$START_COMMAND"]
