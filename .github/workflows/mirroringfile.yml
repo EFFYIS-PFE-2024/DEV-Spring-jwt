@@ -16,7 +16,7 @@ jobs:
     - name: Mirror + trigger CI
       uses: SvanBoxel/gitlab-mirror-and-ci-action@master
       with:
-        args: "https://chifaaBel:${{ secrets.token }}@gitlab.com/spring-jwt.git"
+        args: "https://chifaaBel:${{ secrets.token }}@gitlab.com/chifaaBel/spring-jwt.git"
       env:
         FOLLOW_TAGS: "false"
         FORCE_PUSH: "true"
