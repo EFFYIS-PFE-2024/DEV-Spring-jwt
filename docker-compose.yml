@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  springbootapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8082" 
+    depends_on:
+      - postgres
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/testdb?serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.jdbc.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - JIHAD_APP_JWT_SECRET=jihadSecretKey
+      - JIHAD_APP_JWT_EXPIRATION_MS=86400000
+    command: ["sh", "-c", "until nc -z mysql 3306 && nc -z postgres 5432; do echo 'Waiting for MySQL and PostgreSQL to be ready...'; sleep 1; done; java -jar your-application.jar"]
+
+volumes:
+  postgres_data:
+  mysql_data:
