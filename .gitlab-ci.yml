@@ -4,10 +4,9 @@ stages:
   - deploy
 
 variables:
-  GIT_STRATEGY: clone
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
-  DOCKER_IMAGE_TAG: petclinic
+  DOCKER_IMAGE_TAG: spring-jwt-app
   CI_REGISTRY_IMAGE: "registry.gitlab.com/devops1291810/spring-boot-jwt"
 
 build:
