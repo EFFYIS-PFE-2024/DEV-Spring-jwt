@@ -42,7 +42,6 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - JIHAD_APP_JWT_SECRET=jihadSecretKey
       - JIHAD_APP_JWT_EXPIRATION_MS=86400000
-    command: ["sh", "-c", "until nc -z mysql 3306 && nc -z postgres 5432; do echo 'Waiting for MySQL and PostgreSQL to be ready...'; sleep 1; done; java -jar your-application.jar"]
 
 volumes:
   postgres_data:

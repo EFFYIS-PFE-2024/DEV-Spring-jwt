@@ -8,7 +8,7 @@ variables:
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
   DOCKER_IMAGE_TAG: petclinic
-  CI_REGISTRY_IMAGE: "registry.gitlab.com/pfe20243/mirroring"
+  CI_REGISTRY_IMAGE: "registry.gitlab.com/devops1291810/spring-boot-jwt"
 
 build:
   stage: build
@@ -42,8 +42,8 @@ deploy:
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
-    - ssh -o StrictHostKeyChecking=no $SSH_USER@$VM_IPADDRESS "cd /root/wassim/training/mirroringRepo/ && docker-compose down"
-    - ssh $SSH_USER@$VM_IPADDRESS "cd /root/wassim/training/petclinic/ && CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG docker-compose -f docker-compose.yml up -d"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$VM_IPADDRESS "cd /root/chifaa/spring-boot-app/ && docker compose down"
+    - ssh $SSH_USER@$VM_IPADDRESS "cd /root/chifaa/spring-boot-app/ && CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG docker compose up -d"
   tags:
     - ssh-runner
 
