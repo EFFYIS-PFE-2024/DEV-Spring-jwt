@@ -28,4 +28,4 @@ COPY /src/main/java/com/jihad/springjwt/ /app/com/jihad/springjwt/
 
 WORKDIR /app
 
-ENTRYPOINT ["java", "-cp", ".:/app/lib/*", "com.jihad.springjwt.SpringBootSecurityJwtApplication"]
+CMD ["java", "-cp", ".:/app/lib/*", "com.jihad.springjwt.SpringBootSecurityJwtApplication"]
