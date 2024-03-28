@@ -13,9 +13,7 @@ RUN chmod +x mvnw
 # Set DOCKER_BUILDKIT=1 for this build stage
 # This enables Docker BuildKit only for this stage
 # It doesn't affect other stages or subsequent builds
-RUN --mount=type=cache,target=/root/.m2 \
-    export DOCKER_BUILDKIT=1 \
-    && ./mvnw install -DskipTests
+RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM eclipse-temurin:17-jdk-alpine
